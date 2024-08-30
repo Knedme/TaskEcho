@@ -1,13 +1,19 @@
 import sys
-from PyQt6.QtWidgets import QWidget, QApplication
-from PyQt6 import uic
+from PyQt6.QtWidgets import QMainWindow, QApplication
+from PyQt6 import uic, QtCore
 
 
-class MainWindow(QWidget):
+class MainWindow(QMainWindow):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         uic.loadUi('./ui/main.ui', self)
+
+        # Add a flag to make the window stay on top
+        self.setWindowFlag(QtCore.Qt.WindowType.WindowStaysOnTopHint)
+        self.move(50, 50)  # Move the window to the side of the screen
+
+        self.statusbar.showMessage('Loaded sample.rec')
 
 
 if __name__ == '__main__':
