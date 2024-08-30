@@ -59,7 +59,7 @@
       <number>5</number>
      </property>
      <item>
-      <widget class="QToolButton" name="toolButton_2">
+      <widget class="QToolButton" name="play_btn">
        <property name="maximumSize">
         <size>
          <width>40</width>
@@ -88,7 +88,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton_3">
+      <widget class="QToolButton" name="record_btn">
        <property name="maximumSize">
         <size>
          <width>40</width>
@@ -117,7 +117,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton_4">
+      <widget class="QToolButton" name="stop_btn">
        <property name="maximumSize">
         <size>
          <width>40</width>
@@ -146,7 +146,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton">
+      <widget class="QToolButton" name="open_btn">
        <property name="maximumSize">
         <size>
          <width>40</width>
@@ -175,7 +175,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton_5">
+      <widget class="QToolButton" name="save_btn">
        <property name="maximumSize">
         <size>
          <width>40</width>
@@ -206,7 +206,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QStatusBar" name="statusbar">
+  <widget class="QStatusBar" name="status_bar">
    <property name="styleSheet">
     <string notr="true">background-color: rgba(60, 60, 60, 25);
 border-top: 1px solid rgba(151, 151, 151, 25);</string>

@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
         self.setWindowFlag(QtCore.Qt.WindowType.WindowStaysOnTopHint)
         self.move(50, 50)  # Move the window to the side of the screen
 
-        self.statusbar.showMessage('Loaded sample.rec')
+        self.status_bar.showMessage('Loaded sample.rec')
 
 
 if __name__ == '__main__':
