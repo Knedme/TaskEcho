@@ -1,7 +1,7 @@
 
 # TaskEcho
 
-A very simple program that allows you to automate stuff on your PC by recording and then replaying your actions.
+A very simple easy-to-use program that allows you to automate stuff on your PC by recording and then replaying your actions. Written in Python using PyQt.
 
 
 
