@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Play config</string>
   </property>
   <widget class="QDialogButtonBox" name="button_box">
    <property name="geometry">
