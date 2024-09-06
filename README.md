@@ -3,7 +3,7 @@
 
 [![program interface](./.github/program_interface.png)](#)
 
-A very simple easy-to-use program that allows you to automate stuff on your PC by recording and then replaying your actions. Written in Python using PyQt.
+A very simple easy-to-use program that allows you to automate stuff on your PC by recording and then replaying your actions. Written in Python using PyQt and pynput.
 
 
 
