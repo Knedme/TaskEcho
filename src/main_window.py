@@ -1,10 +1,12 @@
 from enum import Enum
-from PyQt6.QtWidgets import QMainWindow
+from PyQt6.QtWidgets import QMainWindow, QFileDialog
 from PyQt6 import uic, QtCore
 from time import time as get_time, sleep
 from pynput.mouse import Listener as MouseListener, Controller as MouseController
 from pynput.keyboard import Listener as KeyboardListener, Controller as KeyboardController
 from threading import Thread
+from pickle import dump, load
+from os.path import basename
 from config_dlg import PlayConfigDialog
 
 
@@ -28,6 +30,9 @@ class MainWindow(QMainWindow):
         # Mouse and keyboard listeners will be stored here
         self.mouse_listener = None
         self.keyboard_listener = None
+
+        # Used to display loaded file name in the status bar
+        self.loaded_file = ''
 
         # Add a flag to make the window stay on top
         self.setWindowFlag(QtCore.Qt.WindowType.WindowStaysOnTopHint)
@@ -123,7 +128,10 @@ class MainWindow(QMainWindow):
 
             # Display another message
             self.status_bar.setStyleSheet(self.status_bar.styleSheet().replace('\ncolor: green;', ''))
-            self.status_bar.showMessage('The recording is saved in memory.')
+            if self.loaded_file:
+                self.status_bar.showMessage('Loaded ' + self.loaded_file)
+            else:
+                self.status_bar.showMessage('The recording is saved in memory.')
 
         # Return if user closed the dialog
         if dialog.cancelled:
@@ -193,8 +201,36 @@ class MainWindow(QMainWindow):
         th.start()
 
     def save_callback(self):
-        pass
+        # Make the user choose where to save the file
+        path, _ = QFileDialog.getSaveFileName(self, 'Save to a file', './file.rec', "Recording (*.rec)")
+        if path:
+            # Open the file in binary mode and dump the action list using pickle
+            with open(path, 'wb') as f:
+                dump(self.actions_list, f)
+
+            # Display a message to notify the user
+            self.status_bar.showMessage('Exported to ' + basename(path))
 
     def open_callback(self):
-        pass
+        # Now make the user choose where to open the file
+        path, _ = QFileDialog.getOpenFileName(self, 'Open from file', '', "Recording (*.rec)")
+        if path:
+            # Open the file in binary mode and load the action list using pickle
+            filename = basename(path)
+            try:
+                with open(path, 'rb') as f:
+                    self.actions_list = load(f)
+            except Exception:
+                # If any error occurs, display an error message
+                self.status_bar.showMessage('Couldn\'t open ' + filename)
+            
+            # Unlock the buttons
+            self.play_btn.setEnabled(True)
+            self.record_btn.setEnabled(True)
+            self.stop_btn.setEnabled(False)
+            self.open_btn.setEnabled(True)
+            self.save_btn.setEnabled(True)
 
+            # Display a message about the success
+            self.loaded_file = filename
+            self.status_bar.showMessage('Loaded ' + self.loaded_file)
