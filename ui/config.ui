@@ -22,6 +22,11 @@
     <height>240</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>9</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Play config</string>
   </property>
@@ -55,6 +60,7 @@
    </property>
    <property name="font">
     <font>
+     <pointsize>9</pointsize>
      <bold>true</bold>
     </font>
    </property>
@@ -130,6 +136,7 @@
    </property>
    <property name="font">
     <font>
+     <pointsize>9</pointsize>
      <bold>true</bold>
     </font>
    </property>
@@ -199,7 +206,7 @@
     <rect>
      <x>90</x>
      <y>142</y>
-     <width>21</width>
+     <width>31</width>
      <height>16</height>
     </rect>
    </property>
@@ -245,6 +252,7 @@
    </property>
    <property name="font">
     <font>
+     <pointsize>9</pointsize>
      <italic>true</italic>
     </font>
    </property>

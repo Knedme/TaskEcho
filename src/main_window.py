@@ -234,3 +234,4 @@ class MainWindow(QMainWindow):
             # Display a message about the success
             self.loaded_file = filename
             self.status_bar.showMessage('Loaded ' + self.loaded_file)
+

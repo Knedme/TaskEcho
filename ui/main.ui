@@ -207,6 +207,11 @@
    </widget>
   </widget>
   <widget class="QStatusBar" name="status_bar">
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgba(60, 60, 60, 25);
 border-top: 1px solid rgba(151, 151, 151, 25);</string>
