@@ -181,8 +181,8 @@ class MainWindow(QMainWindow):
                             key = args[0]
                             software_cancel_press = hasattr(key, 'char') and key.char == cancel_key
                             keyboard.release(key)
-            # Call on_end when the loop is over
-            on_end()
+            cancel_listener.stop()  # Stop listening to cancel key presses
+            on_end()  # Call on_end when the loop is over
 
         # Listen to cancel key presses
         def detect_cancel(key):
