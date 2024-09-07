@@ -142,7 +142,7 @@ class MainWindow(QMainWindow):
         self.status_bar.setStyleSheet(self.status_bar.styleSheet() + '\ncolor: green;')
         self.status_bar.showMessage('Replaying... Don\'t touch mouse/keyboard.')
 
-        cancel_key = 'c'
+        cancel_key = 67  # 'C' key code
         loop_cancelled = False
         # Used to detect if the cancel key was pressed or released by the program itself
         software_cancel_press = False
@@ -175,11 +175,11 @@ class MainWindow(QMainWindow):
                             mouse.scroll(*args)
                         case ActionType.K_PRESS:
                             key = args[0]
-                            software_cancel_press = hasattr(key, 'char') and key.char == cancel_key
+                            software_cancel_press = key.vk == cancel_key
                             keyboard.press(key)
                         case ActionType.K_RELEASE:
                             key = args[0]
-                            software_cancel_press = hasattr(key, 'char') and key.char == cancel_key
+                            software_cancel_press = key.vk == cancel_key
                             keyboard.release(key)
             cancel_listener.stop()  # Stop listening to cancel key presses
             on_end()  # Call on_end when the loop is over
@@ -187,7 +187,7 @@ class MainWindow(QMainWindow):
         # Listen to cancel key presses
         def detect_cancel(key):
             nonlocal software_cancel_press, loop_cancelled
-            if hasattr(key, 'char') and key.char == cancel_key and not software_cancel_press:
+            if key.vk == cancel_key and not software_cancel_press:
                 loop_cancelled = True
                 on_end()
                 return False
