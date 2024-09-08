@@ -223,6 +223,7 @@ class MainWindow(QMainWindow):
             except Exception:
                 # If any error occurs, display an error message
                 self.status_bar.showMessage('Couldn\'t open ' + filename)
+                return
             
             # Unlock the buttons
             self.play_btn.setEnabled(True)
