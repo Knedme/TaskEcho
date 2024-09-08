@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QMainWindow, QFileDialog
 from PyQt6 import uic, QtCore
 from time import time as get_time, sleep
 from pynput.mouse import Listener as MouseListener, Controller as MouseController
-from pynput.keyboard import Listener as KeyboardListener, Controller as KeyboardController, Key, KeyCode
+from pynput.keyboard import Listener as KeyboardListener, Controller as KeyboardController, Key
 from threading import Thread
 from pickle import dump, load
 from os.path import basename
