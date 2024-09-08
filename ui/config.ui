@@ -257,7 +257,7 @@
     </font>
    </property>
    <property name="text">
-    <string>(You can press C to cancel the playback.)</string>
+    <string>(You can press ESC to cancel the playback.)</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignmentFlag::AlignCenter</set>

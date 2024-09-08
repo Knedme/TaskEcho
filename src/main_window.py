@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QMainWindow, QFileDialog
 from PyQt6 import uic, QtCore
 from time import time as get_time, sleep
 from pynput.mouse import Listener as MouseListener, Controller as MouseController
-from pynput.keyboard import Listener as KeyboardListener, Controller as KeyboardController
+from pynput.keyboard import Listener as KeyboardListener, Controller as KeyboardController, Key, KeyCode
 from threading import Thread
 from pickle import dump, load
 from os.path import basename
@@ -142,7 +142,7 @@ class MainWindow(QMainWindow):
         self.status_bar.setStyleSheet(self.status_bar.styleSheet() + '\ncolor: green;')
         self.status_bar.showMessage('Replaying... Don\'t touch mouse/keyboard.')
 
-        cancel_key = 67  # 'C' key code
+        cancel_key = Key.esc
         loop_cancelled = False
         # Used to detect if the cancel key was pressed or released by the program itself
         software_cancel_press = False
@@ -175,11 +175,11 @@ class MainWindow(QMainWindow):
                             mouse.scroll(*args)
                         case ActionType.K_PRESS:
                             key = args[0]
-                            software_cancel_press = hasattr(key, 'vk') and key.vk == cancel_key
+                            software_cancel_press = key == cancel_key
                             keyboard.press(key)
                         case ActionType.K_RELEASE:
                             key = args[0]
-                            software_cancel_press = hasattr(key, 'vk') and key.vk == cancel_key
+                            software_cancel_press = key == cancel_key
                             keyboard.release(key)
             cancel_listener.stop()  # Stop listening to cancel key presses
             on_end()  # Call on_end when the loop is over
@@ -187,7 +187,7 @@ class MainWindow(QMainWindow):
         # Listen to cancel key presses
         def detect_cancel(key):
             nonlocal software_cancel_press, loop_cancelled
-            if hasattr(key, 'vk') and key.vk == cancel_key and not software_cancel_press:
+            if key == cancel_key and not software_cancel_press:
                 loop_cancelled = True
                 on_end()
                 return False
@@ -202,7 +202,7 @@ class MainWindow(QMainWindow):
 
     def save_callback(self):
         # Make the user choose where to save the file
-        path, _ = QFileDialog.getSaveFileName(self, 'Save to a file', './file.rec', "Recording (*.rec)")
+        path, _ = QFileDialog.getSaveFileName(self, 'Save to a file', './file.rec', 'Recording (*.rec)')
         if path:
             # Open the file in binary mode and dump the action list using pickle
             with open(path, 'wb') as f:
@@ -213,7 +213,7 @@ class MainWindow(QMainWindow):
 
     def open_callback(self):
         # Now make the user choose where to open the file
-        path, _ = QFileDialog.getOpenFileName(self, 'Open from file', '', "Recording (*.rec)")
+        path, _ = QFileDialog.getOpenFileName(self, 'Open from file', '', 'Recording (*.rec)')
         if path:
             # Open the file in binary mode and load the action list using pickle
             filename = basename(path)
