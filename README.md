@@ -9,7 +9,7 @@ Works on Windows and Linux.
 
 Made for a school project (and for fun) :3
 
-## Hotkeys
+### Hotkeys
 
 You can also use hotkeys to perform actions:
 
