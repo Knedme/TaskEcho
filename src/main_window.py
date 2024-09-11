@@ -8,6 +8,7 @@ from threading import Thread
 from pickle import dump, load
 from os.path import basename
 from config_dlg import PlayConfigDialog
+from hotkeys import Hotkeys
 
 
 # Action type enum for convenience
@@ -43,6 +44,9 @@ class MainWindow(QMainWindow):
         self.stop_btn.setEnabled(False)
         self.save_btn.setEnabled(False)
 
+        # Listen to the hotkeys
+        self.hotkeys = Hotkeys(self)
+
         # Connect the callback methods
         self.record_btn.clicked.connect(self.record_callback)
         self.open_btn.clicked.connect(self.open_callback)
@@ -60,6 +64,13 @@ class MainWindow(QMainWindow):
         self.stop_btn.setEnabled(True)
         self.open_btn.setEnabled(False)
         self.save_btn.setEnabled(False)
+
+        # Same with the hotkeys
+        self.hotkeys.toggle['play'] = False
+        self.hotkeys.toggle['record'] = False
+        self.hotkeys.toggle['stop'] = True
+        self.hotkeys.toggle['open'] = False
+        self.hotkeys.toggle['save'] = False
 
         self.actions_list = []  # Reset the actions list
 
@@ -96,6 +107,13 @@ class MainWindow(QMainWindow):
         self.open_btn.setEnabled(True)
         self.save_btn.setEnabled(True)
 
+        # Same with the hotkeys
+        self.hotkeys.toggle['play'] = True
+        self.hotkeys.toggle['record'] = True
+        self.hotkeys.toggle['stop'] = False
+        self.hotkeys.toggle['open'] = True
+        self.hotkeys.toggle['save'] = True
+
         # Stop and remove the mouse and keyboard listeners
         self.mouse_listener.stop()
         self.keyboard_listener.stop()
@@ -113,6 +131,12 @@ class MainWindow(QMainWindow):
         self.open_btn.setEnabled(False)
         self.save_btn.setEnabled(False)
 
+        # Lock the hotkeys too
+        self.hotkeys.toggle['play'] = False
+        self.hotkeys.toggle['record'] = False
+        self.hotkeys.toggle['open'] = False
+        self.hotkeys.toggle['save'] = False
+
         # Summon the config dialog
         dialog = PlayConfigDialog(self)
         dialog.show()
@@ -125,6 +149,12 @@ class MainWindow(QMainWindow):
             self.record_btn.setEnabled(True)
             self.open_btn.setEnabled(True)
             self.save_btn.setEnabled(True)
+
+            # Unlock the hotkeys
+            self.hotkeys.toggle['play'] = True
+            self.hotkeys.toggle['record'] = True
+            self.hotkeys.toggle['open'] = True
+            self.hotkeys.toggle['save'] = True
 
             # Display another message
             self.status_bar.setStyleSheet(self.status_bar.styleSheet().replace('\ncolor: green;', ''))
@@ -231,6 +261,13 @@ class MainWindow(QMainWindow):
             self.stop_btn.setEnabled(False)
             self.open_btn.setEnabled(True)
             self.save_btn.setEnabled(True)
+
+            # Unlock the hotkeys
+            self.hotkeys.toggle['play'] = True
+            self.hotkeys.toggle['record'] = True
+            self.hotkeys.toggle['stop'] = False
+            self.hotkeys.toggle['open'] = True
+            self.hotkeys.toggle['save'] = True
 
             # Display a message about the success
             self.loaded_file = filename
