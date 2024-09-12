@@ -177,6 +177,13 @@ class MainWindow(QMainWindow):
         # Used to detect if the cancel key was pressed or released by the program itself
         software_cancel_press = False
 
+        # Allows to release all the pressed keys when the loop is over
+        held_keys = []
+        def unpress_keys():
+            keyboard = KeyboardController()
+            for key in held_keys:
+                keyboard.release(key)
+
         # Playback loop
         def playback_loop():
             nonlocal software_cancel_press
@@ -207,11 +214,16 @@ class MainWindow(QMainWindow):
                             key = args[0]
                             software_cancel_press = key == cancel_key
                             keyboard.press(key)
+                            if key not in held_keys:
+                                held_keys.append(key)
                         case ActionType.K_RELEASE:
                             key = args[0]
                             software_cancel_press = key == cancel_key
                             keyboard.release(key)
+                            if key in held_keys:
+                                held_keys.remove(key)
             cancel_listener.stop()  # Stop listening to cancel key presses
+            unpress_keys()  # Release all the pressed keys
             on_end()  # Call on_end when the loop is over
 
         # Listen to cancel key presses
@@ -219,6 +231,7 @@ class MainWindow(QMainWindow):
             nonlocal software_cancel_press, loop_cancelled
             if key == cancel_key and not software_cancel_press:
                 loop_cancelled = True
+                unpress_keys()
                 on_end()
                 return False
             # Reset the flag
