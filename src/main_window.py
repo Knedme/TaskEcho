@@ -222,8 +222,9 @@ class MainWindow(QMainWindow):
                             keyboard.release(key)
                             if key in held_keys:
                                 held_keys.remove(key)
+                # Release all the pressed keys
+                unpress_keys()
             cancel_listener.stop()  # Stop listening to cancel key presses
-            unpress_keys()  # Release all the pressed keys
             on_end()  # Call on_end when the loop is over
 
         # Listen to cancel key presses
