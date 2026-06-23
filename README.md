@@ -1,13 +1,9 @@
 
 # Task Echo
 
-[![program interface](./.github/program_interface.png)](#)
+[![program interface](./demo.png)](#)
 
 A very simple easy-to-use program that allows you to automate stuff on your PC by recording and then replaying your actions. Written in Python using PyQt and pynput.
-
-Works on Windows and Linux.
-
-Made for a school project (and for fun) :3
 
 ### Hotkeys
 

@@ -9,6 +9,7 @@ from pickle import dump, load
 from os.path import basename
 from config_dlg import PlayConfigDialog
 from hotkeys import Hotkeys
+from resources import resource_path
 
 
 # Action type enum for convenience
@@ -24,7 +25,7 @@ class MainWindow(QMainWindow):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        uic.loadUi('./ui/main.ui', self)
+        uic.loadUi(resource_path('ui/main.ui'), self)
 
         self.actions_list = []  # Store user's recorded actions
         

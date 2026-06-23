@@ -1,12 +1,13 @@
 from PyQt6.QtWidgets import QDialog
 from PyQt6 import uic
+from resources import resource_path
 
 
 class PlayConfigDialog(QDialog):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        uic.loadUi('./ui/config.ui', self)
+        uic.loadUi(resource_path('ui/config.ui'), self)
 
         # Save user's chocie
         self.cancelled = True
